@@ -1,8 +1,23 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const FavouriteMovies = ({ id }: { id: number }) => {
   const [moviesList, setMoviesList] = useState<number[]>([]);
+
+  // Load the saved movies from localStorage when the component mounts
+  useEffect(() => {
+    const savedMovies = localStorage.getItem("moviesList");
+    if (savedMovies) {
+      setMoviesList(JSON.parse(savedMovies));
+    }
+  }, []); // Runs only on the initial render
+
+  // Save the updated movies list to localStorage whenever it changes
+  useEffect(() => {
+    if (moviesList.length > 0) {
+      localStorage.setItem("moviesList", JSON.stringify(moviesList));
+    }
+  }, [moviesList]);
 
   const addMovie = () => {
     if (!moviesList.includes(id)) {
@@ -24,7 +39,7 @@ const FavouriteMovies = ({ id }: { id: number }) => {
     <div className="flex gap-4">
       <button
         onClick={addMovie}
-        disabled={moviesList.includes(id)} 
+        disabled={moviesList.includes(id)}
         className={`${
           moviesList.includes(id)
             ? "bg-gray-400 cursor-not-allowed"
@@ -36,7 +51,7 @@ const FavouriteMovies = ({ id }: { id: number }) => {
 
       <button
         onClick={removeMovie}
-        disabled={!moviesList.includes(id)} 
+        disabled={!moviesList.includes(id)}
         className={`${
           moviesList.includes(id)
             ? "bg-red-600 hover:bg-red-500"
