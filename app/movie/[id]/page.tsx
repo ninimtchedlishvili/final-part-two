@@ -4,10 +4,11 @@ import Link from "next/link";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
 import { MoviePropsParams } from "@/types/types";
+import FavouriteMovies from "@/app/components/favouriteMovies/Page";
 
 export default async function Movies({ params }: MoviePropsParams) {
   const { id } = params;
-  console.log(id);
+  // console.log(id);
   const IMG_PATH = "https://image.tmdb.org/t/p/w1280";
 
   const data = await fetch(
@@ -96,13 +97,7 @@ export default async function Movies({ params }: MoviePropsParams) {
               <hr className="my-8 border-gray-600" />
 
               <div className="mt-8 gap-4 flex justify-center lg:justify-start">
-                <Link
-                  href="/favourites"
-                  className="text-white bg-blue-950 hover:bg-blue-700 transition duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center font-semibold rounded-lg px-6 py-3 w-1/2"
-                  role="button"
-                >
-                  Add to Favourites
-                </Link>
+                <FavouriteMovies id={movie.id} />
               </div>
             </div>
           </div>
