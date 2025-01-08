@@ -34,7 +34,6 @@ const Page = () => {
     if (moviesList.length > 0) fetchMovies();
   }, [moviesList]);
 
-  // Remove a movie from the favourites list
   const removeMovie = (id: number) => {
     const updatedMoviesList = moviesList.filter((movieId) => movieId !== id);
     setMoviesList(updatedMoviesList);
