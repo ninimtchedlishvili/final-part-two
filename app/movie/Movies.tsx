@@ -1,11 +1,10 @@
-import Image from "next/image";
 import { Movie, MovieProps } from "@/types/types";
-import Link from "next/link";
+import MovieCard from "../components/MovieCard/MovieCard";
 
 const Movies = ({ movies }: MovieProps) => {
+  // const [showMovies, setShowMovies] = useState(movies)
   console.log(movies);
 
-  const IMG_PATH = "https://image.tmdb.org/t/p/w1280";
   return (
     <div className="bg-gray-50 py-8 antialiased dark:bg-gray-900 md:py-12">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -37,56 +36,73 @@ const Movies = ({ movies }: MovieProps) => {
             </h2>
           </div>
         </div>
-
         <div className="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
           {movies.map((movie: Movie) => (
-            <div
-              className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800"
-              key={movie.id}
-            >
-              <div className="relative h-[200px] w-full">
-                {" "}
-                <Image
-                  src={`${IMG_PATH}${movie?.backdrop_path}`}
-                  alt={movie?.title || "Movie Image"}
-                  width={1280}
-                  height={720}
-                />
-              </div>
-              <div className="pt-6">
-                <h1 className="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white">
-                  {movie?.title.slice(0, 25)}
-                </h1>
-                {/* </Link> */}
-                <div className="mt-2 flex items-center gap-2">
-                  <p className="text-md font-medium text-white">
-                    {Math.round(movie?.vote_average)}
-                  </p>
-                  <p className="text-sm font-medium text-gray-500 ">
-                    ({movie?.vote_count} reviews)
-                  </p>
-                </div>
-                <div className="mt-4 flex items-center justify-between gap-4">
-                  <p className="text-md text-white">{movie?.release_date}</p>
-                  <Link href={`/movie/${movie.id}`}>
-                    <button
-                      type="button"
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
-                    >
-                      View More
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            </div>
+            <MovieCard movie={movie} key={movie.id} />
           ))}
         </div>
 
-        {/* Pagination */}
-        <div className="w-full text-center">
-          {/* <Pagination
+        <div className="w-full text-center mt-5">
+          <nav aria-label="Page navigation example">
+            <ul className="inline-flex -space-x-px text-base h-10">
+              <li>
+                <a
+                  href="#"
+                  className="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                  Previous
+                </a>
+              </li>
 
-          /> */}
+              <li>
+                <a
+                  href="#"
+                  className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                  1
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                  2
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  aria-current="page"
+                  className="flex items-center justify-center px-4 h-10 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+                >
+                  3
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                  4
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                  5
+                </a>
+              </li>
+
+              <li>
+                <button className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                  Next
+                </button>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>
