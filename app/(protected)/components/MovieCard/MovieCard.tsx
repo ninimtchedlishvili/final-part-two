@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Movie } from "@/types/types";
+import { Movie } from "@/app/(protected)/types/types";
 
 
 const MovieCard = ({ movie } : {movie: Movie}) => {

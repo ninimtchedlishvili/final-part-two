@@ -1,6 +1,5 @@
-import Header from "@/app/components/layout/Header";
-import Footer from "@/app/components/layout/Footer";
-import Movies from "../movie/Movies";
+import Footer from "@/app/(protected)/components/layout/Footer";
+import Page from "../movie/Page";
 
 export default async function Home() {
   let movies = [];
@@ -17,8 +16,7 @@ export default async function Home() {
 
   return (
     <div className="bg-gray-900">
-      <Header />
-      <Movies movies={movies} />
+      <Page movies={movies} />
       <Footer />
     </div>
   );

@@ -1,5 +1,5 @@
 "use client";
-import { Movie, MovieProps } from "@/types/types";
+import { Movie, MovieProps } from "@/app/(protected)/types/types";
 import MovieCard from "../components/MovieCard/MovieCard";
 import { useCallback, useState, useEffect } from "react";
 import Pagination from "../components/pagination/Pagination";

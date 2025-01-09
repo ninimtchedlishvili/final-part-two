@@ -4,7 +4,7 @@ import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import Image from "next/image";
 import Link from "next/link";
-import { Movie } from "@/types/types";
+import { Movie } from "@/app/(protected)/types/types";
 
 const Page = () => {
   const [moviesList, setMoviesList] = useState<number[]>([]);
@@ -43,7 +43,7 @@ const Page = () => {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <div className="max-w-screen-xl mx-auto p-4">
         <nav aria-label=" p-4 ">
           <ol className="inline-flex items-center space-x-1  md:space-x-2 rtl:space-x-reverse ml-4">

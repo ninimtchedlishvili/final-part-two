@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-const Header = () => {
+const Header = ({ email, onLogOut }: any) => {
   return (
     <nav className=" bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -43,20 +43,7 @@ const Header = () => {
             >
               Home
             </Link>
-            <Link
-              href={"/login"}
-              passHref
-              className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-            >
-              Sign In
-            </Link>
-            <Link
-              href={"/register"}
-              passHref
-              className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-            >
-              Register
-            </Link>
+
             <Link
               href={"/contact"}
               passHref
@@ -71,6 +58,28 @@ const Header = () => {
             >
               Favourites
             </Link>
+
+            {email ? (
+              <a href="#" className="text-white">
+                {email}
+              </a>
+            ) : (
+              <Link
+                href={"/login"}
+                passHref
+                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              >
+                Login
+              </Link>
+            )}
+
+            <a
+              onClick={onLogOut}
+              href="#"
+              className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+            >
+              {email ? "Log Out" : "Sign Up"}
+            </a>
           </ul>
         </div>
       </div>
