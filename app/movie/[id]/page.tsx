@@ -103,7 +103,6 @@ export default async function Movies({ params }: MoviePropsParams) {
           </div>
         </div>
       </section>
-
       <Footer />
     </>
   );

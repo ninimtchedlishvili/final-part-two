@@ -38,15 +38,17 @@ const MovieCard = ({ movie } : {movie: Movie}) => {
       </div>
       <div className="mt-4 flex items-center justify-between gap-4">
         <p className="text-md text-white">{movie?.release_date}</p>
-        <Link href={`/movie/${movie.id}`}>
+        <p className="text-md text-white">{movie?.popularity}</p>
+       
+      </div>
+      <Link href={`/movie/${movie.id}`}>
           <button
             type="button"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded mt-2"
           >
             View More
           </button>
         </Link>
-      </div>
     </div>
   </div>
   )

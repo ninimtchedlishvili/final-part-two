@@ -7,6 +7,7 @@ export type Movie = {
   release_date: string | null;
   overview: string;
   backdrop_path: string | null;
+  popularity: number;
 };
 
 export type MoviesResponse = {
@@ -18,4 +19,10 @@ export type MoviesResponse = {
 
 export type MovieProps = {
   movies: MoviesResponse; 
+};
+
+export type MoviePropsParams = {
+  params: {
+    id: string;
+  };
 };

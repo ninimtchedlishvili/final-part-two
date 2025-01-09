@@ -7,25 +7,69 @@ import Pagination from "../components/pagination/Pagination";
 const Movies = ({ movies }: MovieProps) => {
   const [showMovies, setShowMovies] = useState(movies);
   const [currentPage, setCurrentPage] = useState(showMovies?.page);
+  const [sortType, setSortType] = useState("");
+  const [sortOrder, setSortOrder] = useState("");
 
+  // Fetch movies based on page, sort type, and order
+  const fetchMovies = async () => {
+    try {
+      const data = await fetch(
+        `https://api.themoviedb.org/3/discover/movie?sort_by=${sortType}.${sortOrder}&api_key=3fd2be6f0c70a2a598f084ddfb75487c&page=${currentPage}`
+      );
+      const newMovies = await data.json();
+      setShowMovies(newMovies);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Handle page change (pagination)
+  const handlePageChange = useCallback(
+    (page: number) => {
+      setCurrentPage(page);
+    },
+    []
+  );
+
+  // Handle sorting change
+  const handleSort = (newSortType: string) => {
+    setSortType(newSortType);
+    setSortOrder("asc"); // Reset to ascending when changing the sort type
+  };
+
+  // Handle toggling sort order (ascending/descending)
+  const toggleSortOrder = () => {
+    const newOrder = sortOrder === "asc" ? "desc" : "asc";
+    setSortOrder(newOrder);
+  };
+
+  const sortingData = [
+    {
+      name: "Title",
+      value: "title",
+    },
+    {
+      name: "Release Date",
+      value: "release_date",
+    },
+    {
+      name: "Vote Average",
+      value: "vote_average",
+    },
+    {
+      name: "Review Count",
+      value: "vote_count",
+    },
+    {
+      name: "Popularity",
+      value: "popularity",
+    },
+  ];
+
+  // Fetch movies whenever the sortType, sortOrder, or currentPage changes
   useEffect(() => {
-    const fetchMoviesByPage = async () => {
-      try {
-        const data = await fetch(
-          `https://api.themoviedb.org/3/discover/movie?api_key=3fd2be6f0c70a2a598f084ddfb75487c&page=${currentPage}`
-        );
-        const newMovies = await data.json();
-        setShowMovies(newMovies);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchMoviesByPage();
-  }, [currentPage]);
-
-  const handlePageChange = useCallback((page: number) => {
-    setCurrentPage(page);
-  }, []);
+    fetchMovies();
+  }, [sortType, sortOrder, currentPage]);
 
   return (
     <div className="bg-gray-50 py-8 antialiased dark:bg-gray-900 md:py-12">
@@ -58,12 +102,72 @@ const Movies = ({ movies }: MovieProps) => {
             </h2>
           </div>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
+
+        {/* Filter and Sorting */}
+        <div className="flex items-center space-x-4 mb-4">
+          <select
+            onChange={(e) => handleSort(e.target.value)}
+            className="block w-1/5 rounded-lg border border-gray-300 bg-white py-2 px-3 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+          >
+            {sortingData.map((data) => (
+              <option key={data.value} value={data.value}>
+                {data.name}
+              </option>
+            ))}
+          </select>
+
+          <button
+            className="flex items-center text-white"
+            onClick={toggleSortOrder}
+          >
+            {sortOrder === "desc" ? (
+              <>
+                <svg
+                  className="h-5 w-5 mr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+                Descending
+              </>
+            ) : (
+              <>
+                <svg
+                  className="h-5 w-5 mr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 15l7-7 7 7"
+                  />
+                </svg>
+                Ascending
+              </>
+            )}
+          </button>
+        </div>
+
+        {/* Movie Cards */}
+        <div className="grid gap-4 mt-5 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
           {showMovies.results.map((movie: Movie) => (
             <MovieCard movie={movie} key={movie.id} />
           ))}
         </div>
 
+        {/* Pagination */}
         <div className="w-full text-center mt-5">
           <Pagination
             onPageChange={handlePageChange}
