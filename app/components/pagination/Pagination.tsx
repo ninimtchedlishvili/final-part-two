@@ -12,12 +12,10 @@ const Pagination = ({
   const canGoPreviousPage = currentPage > 1;
   const canGoNextPage = currentPage < totalPages;
 
-
   const handlePageClick = (page: number) => {
     onPageChange(page);
   };
 
-  // Dynamically generate pages to show
   const pagesToShow = Array.from({ length: totalPages }, (_, i) => i + 1).slice(
     Math.max(0, currentPage - 3),
     Math.min(totalPages, currentPage + 2)
@@ -45,7 +43,7 @@ const Pagination = ({
           <button
             onClick={() => handlePageClick(1)}
             disabled={!canGoPreviousPage}
-            className={`flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg ${
+            className={`flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ${
               !canGoPreviousPage
                 ? "cursor-not-allowed opacity-50"
                 : "hover:bg-gray-100 hover:text-gray-700"
@@ -68,7 +66,7 @@ const Pagination = ({
             </button>
           </li>
         ))}
-<li>
+        <li>
           <button
             onClick={() => handlePageClick(totalPages)}
             className={`flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ${
