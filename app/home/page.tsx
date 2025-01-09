@@ -10,7 +10,7 @@ export default async function Home() {
       { next: { revalidate: 10 } }
     );
     const response = await data.json();
-    movies = response.results || [];
+    movies = response || [];
   } catch (error) {
     console.error("Failed to fetch movies:", error);
   }

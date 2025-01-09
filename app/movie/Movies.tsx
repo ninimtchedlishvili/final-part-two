@@ -1,9 +1,31 @@
+"use client";
 import { Movie, MovieProps } from "@/types/types";
 import MovieCard from "../components/MovieCard/MovieCard";
+import { useCallback, useState, useEffect } from "react";
+import Pagination from "../components/pagination/Pagination";
 
 const Movies = ({ movies }: MovieProps) => {
-  // const [showMovies, setShowMovies] = useState(movies)
-  console.log(movies);
+  const [showMovies, setShowMovies] = useState(movies);
+  const [currentPage, setCurrentPage] = useState(showMovies?.page);
+
+  useEffect(() => {
+    const fetchMoviesByPage = async () => {
+      try {
+        const data = await fetch(
+          `https://api.themoviedb.org/3/discover/movie?api_key=3fd2be6f0c70a2a598f084ddfb75487c&page=${currentPage}`
+        );
+        const newMovies = await data.json();
+        setShowMovies(newMovies);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchMoviesByPage();
+  }, [currentPage]);
+
+  const handlePageChange = useCallback((page: number) => {
+    setCurrentPage(page);
+  }, []);
 
   return (
     <div className="bg-gray-50 py-8 antialiased dark:bg-gray-900 md:py-12">
@@ -37,72 +59,17 @@ const Movies = ({ movies }: MovieProps) => {
           </div>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
-          {movies.map((movie: Movie) => (
+          {showMovies.results.map((movie: Movie) => (
             <MovieCard movie={movie} key={movie.id} />
           ))}
         </div>
 
         <div className="w-full text-center mt-5">
-          <nav aria-label="Page navigation example">
-            <ul className="inline-flex -space-x-px text-base h-10">
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                >
-                  Previous
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                >
-                  1
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                >
-                  2
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  aria-current="page"
-                  className="flex items-center justify-center px-4 h-10 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-                >
-                  3
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                >
-                  4
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                >
-                  5
-                </a>
-              </li>
-
-              <li>
-                <button className="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                  Next
-                </button>
-              </li>
-            </ul>
-          </nav>
+          <Pagination
+            onPageChange={handlePageChange}
+            currentPage={currentPage}
+            totalPages={500}
+          />
         </div>
       </div>
     </div>
