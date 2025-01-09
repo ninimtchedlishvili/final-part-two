@@ -5,6 +5,7 @@ import "./globals.css";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Header from "./components/layout/Header";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -21,22 +22,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const router = useRouter();
-  const [isChecking, setSetChecking] = useState(true);
-  const user = localStorage.getItem("user");
-  const userData = user ? JSON.parse(user) : null;
+  const [isChecking, setIsChecking] = useState(true);
+  const [userData, setUserData] = useState<{ email: string } | null>(null);
 
   useEffect(() => {
     const user = localStorage.getItem("user");
 
-    if (!user) {
-      router.push("/login");
+    if (user) {
+      try {
+        const parsedUser = JSON.parse(user);
+        setUserData(parsedUser);
+      } catch (err) {
+        console.error("Failed to parse user data:", err);
+      }
     } else {
-      setSetChecking(false);
+      router.push("/login");
     }
-  }, [router, user]);
+    setIsChecking(false);
+  }, [router]);
 
   const onLogOut = () => {
     localStorage.removeItem("user");
+    setUserData(null);
     router.push("/login");
   };
 
@@ -45,8 +52,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header email={userData.email} onLogOut={onLogOut} />
-        {isChecking ? <div>Loading</div> : <div>{children}</div>}
+        <Header email={userData?.email || null} onLogOut={onLogOut} />
+        {isChecking ? <div>Loading...</div> : <div>{children}</div>}
       </body>
     </html>
   );

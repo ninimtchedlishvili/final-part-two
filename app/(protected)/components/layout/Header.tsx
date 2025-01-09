@@ -1,8 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import Link from "next/link";
 
-const Header = ({ email, onLogOut }: any) => {
+type HeaderProps = {
+  email: string | null;
+  onLogOut: () => void;
+};
+
+const Header = ({ email, onLogOut } : HeaderProps) => {
   return (
     <nav className=" bg-gray-900">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
