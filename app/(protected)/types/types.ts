@@ -20,3 +20,5 @@ export type MoviesResponse = {
 export type MovieProps = {
   movies: MoviesResponse; 
 };
+
+

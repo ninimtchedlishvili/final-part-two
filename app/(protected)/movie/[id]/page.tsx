@@ -16,28 +16,20 @@ type Movie = {
   popularity: number;
 };
 
-type MovieProps = {
-  movie: Movie;
-};
+interface MoviePageProps {
+  params: Promise<{ id: string }>;
+}
 
 const IMG_PATH = "https://image.tmdb.org/t/p/w1280";
 
-export async function getServerSideProps({ params }: { params: { id: string } }) {
-  const { id } = params;
+const Movies = async ({ params }: MoviePageProps) => {
+  const { id } = await params;  
 
-  const res = await fetch(
+  const data = await fetch(
     `https://api.themoviedb.org/3/movie/${id}?api_key=3fd2be6f0c70a2a598f084ddfb75487c`
   );
-  const movie: Movie = await res.json();
+  const movie: Movie = await data.json();
 
-  return {
-    props: {
-      movie,
-    },
-  };
-}
-
-export default function Movies({ movie }: MovieProps) {
   return (
     <>
       <section className="py-16 bg-gray-900 flex justify-center items-center mx-auto h-screen">
@@ -127,4 +119,6 @@ export default function Movies({ movie }: MovieProps) {
       <Footer />
     </>
   );
-}
+};
+
+export default Movies;
