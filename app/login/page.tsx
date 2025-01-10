@@ -3,8 +3,13 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
+import Header from "../(protected)/components/layout/Header";
 
-const Login = () => {
+type HeaderProps = {
+    email: string | null;
+    onLogOut: () => void;
+  };
+const Login = ({email, onLogOut} : HeaderProps) => {
   const router = useRouter()
   const [formData, setFormData] = useState({
     email: "",
@@ -42,6 +47,7 @@ const Login = () => {
 
   return (
     <>
+    <Header email={email || null} onLogOut={onLogOut} />
       <section className="bg-gray-50 dark:bg-gray-900 mt-[70px]">
         <div className="flex flex-col items-center justify-center px-6 mx-auto mt-50 lg:py-0">
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
