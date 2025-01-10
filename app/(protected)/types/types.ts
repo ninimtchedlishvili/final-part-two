@@ -20,9 +20,3 @@ export type MoviesResponse = {
 export type MovieProps = {
   movies: MoviesResponse; 
 };
-
-export type MoviePropsParams = {
-  params: {
-    id: string;
-  };
-};

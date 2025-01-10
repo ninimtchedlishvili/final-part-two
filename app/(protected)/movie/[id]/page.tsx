@@ -2,12 +2,17 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/app/(protected)/components/layout/Footer";
-import { MoviePropsParams } from "@/app/(protected)/types/types";
 import FavouriteMovies from "@/app/(protected)/components/favouriteMovies/Page";
 
+type MoviePropsParams = {
+  params: {
+    id: string; 
+  };
+};
+
 export default async function Movies({ params }: MoviePropsParams) {
-  const { id } = params;
-  // console.log(id);
+  const { id } = params; // Destructure `id` from params
+
   const IMG_PATH = "https://image.tmdb.org/t/p/w1280";
 
   const data = await fetch(
