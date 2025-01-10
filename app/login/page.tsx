@@ -2,20 +2,14 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-import Header from "../(protected)/components/layout/Header";
-
-type HeaderProps = {
-    email: string | null;
-    onLogOut: () => void;
-  };
-const Login = ({email, onLogOut} : HeaderProps) => {
-  const router = useRouter()
+const Login = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
 
   const users = [
     { email: "john.doe@example.com", password: "Passw0rd123!" },
@@ -30,24 +24,23 @@ const Login = ({email, onLogOut} : HeaderProps) => {
     { email: "olivia.lee@example.com", password: "Olivia##789" },
   ];
 
-  const handleSubmit = (e : any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     const user = users.find(
-      (user) => user.email === formData.email && user.password === formData.password
+      (user) =>
+        user.email === formData.email && user.password === formData.password
     );
-    if(user) {
+    if (user) {
       console.log("user found");
       localStorage.setItem("user", JSON.stringify(user));
       router.push("/home");
     } else {
-      console.log("user not found")
+      console.log("user not found");
     }
-    
   };
 
   return (
     <>
-    <Header email={email || null} onLogOut={onLogOut} />
       <section className="bg-gray-50 dark:bg-gray-900 mt-[70px]">
         <div className="flex flex-col items-center justify-center px-6 mx-auto mt-50 lg:py-0">
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -120,10 +113,18 @@ const Login = ({email, onLogOut} : HeaderProps) => {
                 </div>
                 <button
                   type="submit"
-                  className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 bg-blue-500 hover:bg-blue-700"
+                  className="w-full text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 bg-blue-500 hover:bg-blue-700"
                 >
                   Sign in
                 </button>
+
+                <Link
+                  href={"/contact"}
+                  type="submit"
+                  className="text-gray-500 dark:text-gray-300 mt-10"
+                >
+                  Contuct Us
+                </Link>
               </form>
             </div>
           </div>
