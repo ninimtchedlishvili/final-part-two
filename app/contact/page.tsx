@@ -61,12 +61,10 @@ const Contact = () => {
               Send message
             </button>
             <br />
-            <Link
-              href={"/login"}
-              type="submit"
-              className="text-gray-500 dark:text-gray-300 py-2.5"
-            >
-              Go to Login Page
+            <Link href={"/home"} type="submit" className="">
+              <button className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 mt-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 bg-blue-500 hover:bg-blue-700">
+                Go to Home Page
+              </button>
             </Link>
           </form>
         </div>
