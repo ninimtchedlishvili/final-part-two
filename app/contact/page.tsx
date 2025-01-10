@@ -2,12 +2,11 @@ import React from "react";
 import Header from "../(protected)/components/layout/Header";
 
 type HeaderProps = {
-    email: string | null;
-    onLogOut: () => void;
-  };
+  email: string | null;
+  onLogOut: () => void;
+};
 
-const ContactUs = ({email, onLogOut} : HeaderProps) => {
-    
+const Contact  = ({ email, onLogOut }: HeaderProps) => {
   return (
     <>
       <Header email={email || null} onLogOut={onLogOut} />
@@ -78,4 +77,4 @@ const ContactUs = ({email, onLogOut} : HeaderProps) => {
   );
 };
 
-export default ContactUs;
+export default Contact ;
