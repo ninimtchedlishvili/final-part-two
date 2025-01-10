@@ -4,15 +4,13 @@ import React, { useState, useEffect } from "react";
 const FavouriteMovies = ({ id }: { id: number }) => {
   const [moviesList, setMoviesList] = useState<number[]>([]);
 
-  // Load the saved movies from localStorage when the component mounts
   useEffect(() => {
     const savedMovies = localStorage.getItem("moviesList");
     if (savedMovies) {
       setMoviesList(JSON.parse(savedMovies));
     }
-  }, []); // Runs only on the initial render
+  }, []); 
 
-  // Save the updated movies list to localStorage whenever it changes
   useEffect(() => {
     if (moviesList.length > 0) {
       localStorage.setItem("moviesList", JSON.stringify(moviesList));

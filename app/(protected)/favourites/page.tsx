@@ -11,13 +11,11 @@ const Page = () => {
   const IMG_PATH = "https://image.tmdb.org/t/p/w1280";
   const API_KEY = "3fd2be6f0c70a2a598f084ddfb75487c";
 
-  // Load movies list from localStorage
   useEffect(() => {
     const savedMovies = JSON.parse(localStorage.getItem("moviesList") || "[]");
     setMoviesList(savedMovies);
   }, []);
 
-  // Fetch movie data based on movie IDs
   useEffect(() => {
     const fetchMovies = async () => {
       const fetchedMovies = await Promise.all(
