@@ -66,9 +66,9 @@ const Movies = ({ movies }: MovieProps) => {
     },
   ];
 
-  // Fetch movies whenever the sortType, sortOrder, or currentPage changes
   useEffect(() => {
     fetchMovies();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sortType, sortOrder, currentPage]);
 
   return (

@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Header from "@/app/(protected)/components/layout/Header";
 import Footer from "@/app/(protected)/components/layout/Footer";
 import { MoviePropsParams } from "@/app/(protected)/types/types";
 import FavouriteMovies from "@/app/(protected)/components/favouriteMovies/Page";
@@ -18,7 +17,6 @@ export default async function Movies({ params }: MoviePropsParams) {
 
   return (
     <>
-      {/* <Header /> */}
       <section className="py-16 bg-gray-900 flex justify-center items-center mx-auto h-screen">
         <div className="max-w-screen-xl px-6 mx-auto">
           <nav className="flex" aria-label="Breadcrumb">
