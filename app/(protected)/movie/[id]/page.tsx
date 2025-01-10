@@ -4,22 +4,40 @@ import Link from "next/link";
 import Footer from "@/app/(protected)/components/layout/Footer";
 import FavouriteMovies from "@/app/(protected)/components/favouriteMovies/Page";
 
-type MoviePropsParams = {
-  params: {
-    id: string; 
-  };
+type Movie = {
+  id: number;
+  title: string;
+  poster_path: string | null;
+  vote_average: number;
+  vote_count: number;
+  release_date: string | null;
+  overview: string;
+  backdrop_path: string | null;
+  popularity: number;
 };
 
-export default async function Movies({ params }: MoviePropsParams) {
-  const { id } = params; // Destructure `id` from params
+type MovieProps = {
+  movie: Movie;
+};
 
-  const IMG_PATH = "https://image.tmdb.org/t/p/w1280";
+const IMG_PATH = "https://image.tmdb.org/t/p/w1280";
 
-  const data = await fetch(
+export async function getServerSideProps({ params }: { params: { id: string } }) {
+  const { id } = params;
+
+  const res = await fetch(
     `https://api.themoviedb.org/3/movie/${id}?api_key=3fd2be6f0c70a2a598f084ddfb75487c`
   );
-  const movie = await data.json();
+  const movie: Movie = await res.json();
 
+  return {
+    props: {
+      movie,
+    },
+  };
+}
+
+export default function Movies({ movie }: MovieProps) {
   return (
     <>
       <section className="py-16 bg-gray-900 flex justify-center items-center mx-auto h-screen">
