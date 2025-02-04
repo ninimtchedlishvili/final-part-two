@@ -31,7 +31,6 @@ const FavouriteMovies = ({ id }: { id: number }) => {
     }
   };
 
-  console.log("Movies List:", moviesList);
 
   return (
     <div className="flex gap-4">

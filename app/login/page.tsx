@@ -12,7 +12,7 @@ const Login = () => {
   });
 
   const users = [
-    { email: "john.doe@example.com", password: "Passw0rd123!" },
+    { email: "john.doe@example.com", password: "Passw0rd123$" },
     { email: "jane.smith@example.com", password: "Secure#4567" },
     { email: "alice.brown@example.com", password: "Alice$2025" },
     { email: "bob.jones@example.com", password: "B0b_Rocks987" },
@@ -125,11 +125,15 @@ const Login = () => {
                 >
                   Contuct Us
                 </Link>
+                <p>john.doe@example.com</p>
+                <p>Passw0rd123$</p>
               </form>
             </div>
           </div>
         </div>
+
       </section>
+ 
     </>
   );
 };
